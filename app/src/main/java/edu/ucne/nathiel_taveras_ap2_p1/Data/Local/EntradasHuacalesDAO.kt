@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EntradasHuacalesDAO{
-    @Query("SELECT *FROM entradas ORDER BY IdEntrada DESC")
+    @Query("SELECT *FROM EntradasHuacales ORDER BY IdEntrada DESC")
     fun observerAll(): Flow<List<EntradasHuacalesEntity>>
 
-    @Query("SELECT* FROM entradas WHERE IdEntrada=:id")
+    @Query("SELECT* FROM EntradasHuacales WHERE IdEntrada=:id")
     suspend fun getById(id:Int): EntradasHuacalesEntity?
 
-    @Query("DELETE FROM entradas WHERE IdEntrada=:id")
+    @Query("DELETE FROM EntradasHuacales WHERE IdEntrada=:id")
     suspend fun deleteById(id:Int)
 
     @Upsert
