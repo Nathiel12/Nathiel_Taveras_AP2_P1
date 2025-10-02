@@ -4,6 +4,6 @@ class EntradasHuacales(
     val IdEntrada: Int = 0,
     val Fecha: String = "",
     val NombreCliente: String = "",
-    val Cantidad: Int ,
+    val Cantidad: Int,
     val Precio: Double
 )
