@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                    composable("editEntradas/{id}") { backStackEntry ->
+                    composable("editEntrada/{id}") { backStackEntry ->
                         val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
                         EditEntradasScreen(IdEntrada = id)
                     }
