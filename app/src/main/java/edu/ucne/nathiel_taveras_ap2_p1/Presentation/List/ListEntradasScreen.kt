@@ -124,7 +124,7 @@ private fun PlayerListBodyPreview() {
         val state = ListEntradasUiState(
             entradas = listOf(
                 EntradasHuacales(IdEntrada = 1, NombreCliente = "Juan Pérez", Cantidad = 2, Precio = 1000.00),
-                EntradasHuacales(IdEntrada = 2, NombreCliente = "María García", Cantidad= 3, Precio = 2000.00)
+                EntradasHuacales(IdEntrada = 2, NombreCliente = "María García", Cantidad = 3, Precio = 2000.00)
             )
         )
         EntradasListBody(
