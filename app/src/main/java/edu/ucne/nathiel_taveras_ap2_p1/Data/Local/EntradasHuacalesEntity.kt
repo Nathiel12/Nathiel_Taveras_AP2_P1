@@ -10,5 +10,5 @@ class EntradasHuacalesEntity(
     val Fecha: String = "",
     val NombreCliente: String = "",
     val Cantidad: Int,
-    val Precio: Float
+    val Precio: Double
 )
