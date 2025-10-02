@@ -20,7 +20,7 @@ import javax.inject.Inject
 class EditEntradasViewModel @Inject constructor(
     private val getHuacalesUseCase: GetHuacalesUseCase,
     private val upsertHuacalesUseCase: UpsertHuacalesUseCase,
-    private val deleteLogroUseCase: DeleteHuacalesUseCase,
+    private val deleteHuacalesUseCase: DeleteHuacalesUseCase,
     private val entradasHuacalesRepository: EntradasHuacalesRepository
 ) : ViewModel(){
     private val _state = MutableStateFlow(EditEntradasUiState())
@@ -116,6 +116,14 @@ class EditEntradasViewModel @Inject constructor(
                 _state.update { it.copy(fechaError = "Fecha requerida") }
                 return@launch
             }
+            if(_state.value.cantidad <= 0){
+                _state.update { it.copy(cantidadError = "La cantidad debe ser mayor a 0") }
+                return@launch
+            }
+            if(_state.value.precio <= 0.0){
+                _state.update { it.copy(precioError = "El precio debe ser mayor a 0") }
+                return@launch
+            }
             _state.update { it.copy(isSaving = true) }
 
             try{
@@ -152,7 +160,7 @@ class EditEntradasViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isDeleting = true) }
             try {
-                deleteLogroUseCase(id)
+                deleteHuacalesUseCase(id)
                 _state.update { it.copy(isDeleting = false, deleted = true) }
             }catch (e: Exception){
                 _state.update {
