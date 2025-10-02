@@ -21,8 +21,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import edu.ucne.nathiel_taveras_ap2_p1.Presentation.Edit.EditEntradasUiState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun EditEntradasScreen(
@@ -64,15 +65,46 @@ private fun EditEntradasBody(
             Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
-                value = state.cantidad?.toString() ?: "",
+                value = state.cantidad.toString() ?: "",
                 onValueChange = { onEvent(EditEntradasUiEvent.CantidadChanged(it)) },
-                label = { Text("Cantidad") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                label = { Text("Cantidad:") },
                 isError = state.cantidadError != null,
                 modifier = Modifier.fillMaxWidth()
             )
-            if (state.cantidadError != null) Text(
-                state.cantidadError,
+            if (state.cantidadError != null) {
+                Text(
+                    state.cantidadError,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            Spacer(Modifier.height(12.dp))
+
+            OutlinedTextField(
+                value = state.fecha,
+                onValueChange = { onEvent(EditEntradasUiEvent.FechaChanged(it)) },
+                placeholder = { Text(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))) },
+                label = { Text("Fecha") },
+                isError = state.cantidadError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (state.fechaError != null) Text(
+                state.fechaError,
+                color = MaterialTheme.colorScheme.error
+            )
+
+            Spacer(Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = state.precio.toString() ?: "",
+                onValueChange = { onEvent(EditEntradasUiEvent.PrecioChanged(it)) },
+                label = { Text("Precio") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                isError = state.precioError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (state.precioError != null) Text(
+                state.precioError,
                 color = MaterialTheme.colorScheme.error
             )
 
