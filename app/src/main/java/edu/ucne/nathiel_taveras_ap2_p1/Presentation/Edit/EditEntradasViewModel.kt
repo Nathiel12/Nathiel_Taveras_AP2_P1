@@ -76,29 +76,31 @@ class EditEntradasViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     fecha = fecha,
-                    fechaError = if(fecha.isBlank()) "Fecha requerido" else null
+                    fechaError = if(fecha.isBlank()) "Fecha requerida" else null
                 )
             }
         }
     }
 
-    private fun onCantidadChanged(cantidad: Int){
+    private fun onCantidadChanged(cantidad: String){
+        val cantidadInt = cantidad.toIntOrNull()
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    cantidad = cantidad,
-                    cantidadError = if(cantidad == null) "Cantidad requerida" else null
+                    cantidad = cantidadInt ?: 0,
+                    cantidadError = if(cantidadInt == null || cantidadInt <= 0) "Cantidad requerida" else null
                 )
             }
         }
     }
 
-    private fun onPrecioChanged(precio: Double){
+    private fun onPrecioChanged(precio: String){
+        val precioInt = precio.toDoubleOrNull()
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    precio = precio,
-                    precioError = if(precio == null) "Precio requerido" else null
+                    precio = precioInt ?: 0.0,
+                    precioError = if(precioInt == null || precioInt <= 0.0) "Precio requerido" else null
                 )
             }
         }
