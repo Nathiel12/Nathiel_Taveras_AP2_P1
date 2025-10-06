@@ -27,12 +27,25 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun EditEntradasScreen(
-    IdEntrada: Int?,viewModel: EditEntradasViewModel = hiltViewModel()
+    IdEntrada: Int?,
+    onSaveComplete: () -> Unit,
+    onDeleteComplete: () -> Unit,
+    viewModel: EditEntradasViewModel = hiltViewModel()
 ) {
     LaunchedEffect(IdEntrada) {
         viewModel.onEvent(EditEntradasUiEvent.Load(IdEntrada))
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
+    LaunchedEffect(state.saved) {
+        if (state.saved) {
+            onSaveComplete()
+        }
+    }
+    LaunchedEffect(state.deleted) {
+        if (state.deleted) {
+            onDeleteComplete()
+        }
+    }
     EditEntradasBody(state, viewModel::onEvent)
 }
 
